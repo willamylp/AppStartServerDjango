@@ -8,10 +8,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(439, 498)
+        MainWindow.resize(440, 499)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
@@ -37,6 +38,8 @@ class Ui_MainWindow(object):
         self.labelServerName.setObjectName("labelServerName")
         self.port = QtWidgets.QSpinBox(self.groupBox_2)
         self.port.setGeometry(QtCore.QRect(230, 49, 81, 21))
+        self.port.setMinimum(0)
+        self.port.setMaximum(65000)
         self.port.setObjectName("port")
         self.labelPorta = QtWidgets.QLabel(self.groupBox_2)
         self.labelPorta.setGeometry(QtCore.QRect(230, 30, 101, 21))
@@ -63,6 +66,7 @@ class Ui_MainWindow(object):
         self.logo.setObjectName("logo")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(20, 440, 401, 31))
+        self.label.setOpenExternalLinks(True)
         self.label.setObjectName("label")
         self.endServer = QtWidgets.QPushButton(self.centralwidget)
         self.endServer.setGeometry(QtCore.QRect(340, 400, 81, 23))
@@ -87,46 +91,62 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        MainWindow.setTabOrder(self.dictApp, self.btnBuscarApp)
+        MainWindow.setTabOrder(self.btnBuscarApp, self.dictVenv)
+        MainWindow.setTabOrder(self.dictVenv, self.btnBuscarVenv)
+        MainWindow.setTabOrder(self.btnBuscarVenv, self.serverName)
+        MainWindow.setTabOrder(self.serverName, self.port)
+        MainWindow.setTabOrder(self.port, self.btnTestar)
+        MainWindow.setTabOrder(self.btnTestar, self.startServer)
+        MainWindow.setTabOrder(self.startServer, self.endServer)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Start Server Django"))
-        self.groupBox.setTitle(_translate("MainWindow", "DIRETÓRIO DA APLICAÇÃO"))
+        MainWindow.setWindowTitle(_translate(
+            "MainWindow", "Start Server Django"))
+        self.groupBox.setTitle(_translate(
+            "MainWindow", "DIRETÓRIO DA APLICAÇÃO"))
         self.btnBuscarApp.setText(_translate("MainWindow", "BUSCAR..."))
-        self.groupBox_2.setTitle(_translate("MainWindow", "INFORMAÇÕES DO SERVIDOR"))
+        self.groupBox_2.setTitle(_translate(
+            "MainWindow", "INFORMAÇÕES DO SERVIDOR"))
         self.btnTestar.setText(_translate("MainWindow", "TESTAR"))
-        self.labelServerName.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">NOME DO SERVIDOR</span></p></body></html>"))
-        self.labelPorta.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">PORTA</span></p></body></html>"))
-        self.status.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Status:</span></p></body></html>"))
-        self.labelOk.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; color:#005500;\"></span></p></body></html>"))
-        self.labelErro.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; color:#aa0000;\"></span></p></body></html>"))
+        self.labelServerName.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">NOME DO SERVIDOR</span></p></body></html>"))
+        self.labelPorta.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">PORTA</span></p></body></html>"))
+        self.status.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Status:</span></p></body></html>"))
+        self.labelOk.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; color:#005500;\"></span></p></body></html>"))
+        self.labelErro.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; color:#aa0000;\"></span></p></body></html>"))
         self.logo.setText(_translate("MainWindow", "<html><head/><body>\n"
-"<div align=\"center\"><img src=\"../images/Logo_StartServerDjango.png\"/></div>\n"
-"</body></html>"))
+                                     "<div align=\"center\"><img src=\"../images/Logo_StartServerDjango.png\"/></div>\n"
+                                     "</body></html>"))
         self.label.setText(_translate("MainWindow", "<html>\n"
-"<head/>\n"
-"<body>\n"
-"<style>\n"
-"a.link {\n"
-"text-decoration: none;\n"
-"transition: 0.3s\n"
-"}\n"
-"a.link:hover {\n"
-"text-decoration: none;\n"
-"font-weight: bold;\n"
-"transition: 0.3s\n"
-"}\n"
-"</style>\n"
-"<p>\n"
-"<span style=\" font-size:10pt; font-weight:600;\">Desenvolvido por: </span>\n"
-"<span style=\" font-size:10pt;\">\n"
-"<a class=\"link\" href=\"wi2l.com.br\" target=\"_blank\">Willamy Domingos - WI2L</a>\n"
-"</span>\n"
-"</p>\n"
-"</body>\n"
-"</html>"))
+                                      "<head/>\n"
+                                      "<body>\n"
+                                      "<style>\n"
+                                      "a.link {\n"
+                                      "text-decoration: none;\n"
+                                      "transition: 0.3s\n"
+                                      "}\n"
+                                      "a.link:hover {\n"
+                                      "text-decoration: none;\n"
+                                      "font-weight: bold;\n"
+                                      "transition: 0.3s\n"
+                                      "}\n"
+                                      "</style>\n"
+                                      "<p>\n"
+                                      "<span style=\" font-size:10pt; font-weight:600;\">Desenvolvido por: </span>\n"
+                                      "<span style=\" font-size:10pt;\">\n"
+                                      "<a class=\"link\" href=\"wi2l.com.br\" target=\"_blank\">Willamy Domingos - WI2L</a>\n"
+                                      "</span>\n"
+                                      "</p>\n"
+                                      "</body>\n"
+                                      "</html>"))
         self.endServer.setText(_translate("MainWindow", "PARAR"))
         self.startServer.setText(_translate("MainWindow", "INICIAR"))
-        self.groupBox_3.setTitle(_translate("MainWindow", "DIRETÓRIO DA VirtualEnv (venv)"))
+        self.groupBox_3.setTitle(_translate(
+            "MainWindow", "DIRETÓRIO DA VirtualEnv (venv)"))
         self.btnBuscarVenv.setText(_translate("MainWindow", "BUSCAR..."))
-

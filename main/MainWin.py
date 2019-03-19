@@ -1,5 +1,4 @@
-import os
-import sys
+import os, sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QFileDialog
@@ -12,22 +11,21 @@ class MainWindow:
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.main_win)
 
-        self.ui.btnBuscarApp.clicked.connect(self.btnSearchApp)
-        self.ui.btnBuscarVenv.clicked.connect(self.btnSearchVenv)
+        self.appDir = self.ui.btnBuscarApp.clicked.connect(self.searchApp)
+        self.venvDir = self.ui.btnBuscarVenv.clicked.connect(self.searchVenv)
 
     def show(self):
         self.main_win.show()
 
-    def btnSearchApp(self):
-        self.dir_name = str(QFileDialog.getExistingDirectory(self, 'Select Directory'))
+    def searchApp(self):
+        self.appDir = str(QFileDialog.getExistingDirectory(
+            None, 'Selecionar Pasta da Aplicação', os.getenv('HOME')))
+        return self.appDir
 
-        if self.dir_name:
-            self.btn_file.setText(self.dir_name)
-        #file = QFileDialog.getExistingDirectory(self, "Selecionar Diretório")
-
-    def btnSearchVenv(self):
-        pass
-
+    def searchVenv(self):
+        self.venvDir = str(QFileDialog.getExistingDirectory(
+            None, 'Selecionar Pasta da Virtualenv', os.getenv('HOME')))
+        return self.venvDir
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

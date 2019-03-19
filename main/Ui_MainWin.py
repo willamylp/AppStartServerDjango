@@ -90,7 +90,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Logo"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Start Server Django"))
         self.groupBox.setTitle(_translate("MainWindow", "DIRETÓRIO DA APLICAÇÃO"))
         self.btnBuscarApp.setText(_translate("MainWindow", "BUSCAR..."))
         self.groupBox_2.setTitle(_translate("MainWindow", "INFORMAÇÕES DO SERVIDOR"))

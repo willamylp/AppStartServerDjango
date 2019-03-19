@@ -101,7 +101,7 @@ class Ui_MainWindow(object):
         self.labelOk.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; color:#005500;\"></span></p></body></html>"))
         self.labelErro.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600; color:#aa0000;\"></span></p></body></html>"))
         self.logo.setText(_translate("MainWindow", "<html><head/><body>\n"
-"<div align=\"center\"><img src=\"./Logo_StartServerDjango.png\"/></div>\n"
+"<div align=\"center\"><img src=\"../images/Logo_StartServerDjango.png\"/></div>\n"
 "</body></html>"))
         self.label.setText(_translate("MainWindow", "<html>\n"
 "<head/>\n"

@@ -44,12 +44,12 @@ class MainWindow:
             '<b style="font-size:11pt; font-weight:600; color:#005500;">Disponível para uso!</b>')
     
         def openLink(self):
-        url = 'http://wi2l.com.br'
-        if sys.platform == 'darwin':  # Em caso de ser OS X
-            subprocess.Popen(['open', url])
-        else:
-            webbrowser.open_new_tab(url)
-            
+            url = 'http://wi2l.com.br'
+            if sys.platform == 'darwin':  # Em caso de ser OS X
+                subprocess.Popen(['open', url])
+            else:
+                webbrowser.open_new_tab(url)
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main_win = MainWindow()

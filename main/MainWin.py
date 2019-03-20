@@ -30,11 +30,14 @@ class MainWindow:
             None, 'Selecionar Pasta da Virtualenv', os.getenv('HOME')))
         self.ui.dictVenv.setText(self.venvDir)
         
-    #def testServer(self):
     def testServer(self):
-        self.ui.serverName.setText('localhost')
-        self.ui.port.setValue(8000)
-
+        if(self.ui.serverName.text() == ''):
+            self.ui.serverName.setText('localhost')
+        if(self.ui.port.value() == 0):
+            self.ui.port.setValue(8000)
+        else:
+            pass
+            
         self.ui.labelStatus.setText(
             '<b style=" font-size:11pt; font-weight:600; color:#000055;">Testando...</b>')
         for i in range(100):
@@ -43,12 +46,12 @@ class MainWindow:
         self.ui.labelStatus.setText(
             '<b style="font-size:11pt; font-weight:600; color:#005500;">Disponível para uso!</b>')
     
-        def openLink(self):
-            url = 'http://wi2l.com.br'
-            if sys.platform == 'darwin':  # Em caso de ser OS X
-                subprocess.Popen(['open', url])
-            else:
-                webbrowser.open_new_tab(url)
+    def openLink(self):
+        url = 'http://wi2l.com.br'
+        if sys.platform == 'darwin':  # Em caso de ser OS X
+            subprocess.Popen(['open', url])
+        else:
+            webbrowser.open_new_tab(url)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

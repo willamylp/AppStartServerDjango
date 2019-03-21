@@ -25,6 +25,11 @@ class MainWindow:
         self.main_win = QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.main_win)
+
+        self.ipAtual = str(socket.gethostbyname(socket.gethostname()))
+        self.ui.serverName.setText(self.ipAtual)
+        self.ui.port.setValue(80)
+        
         self.ui.btnBuscarApp.clicked.connect(self.searchApp)
         self.ui.btnBuscarVenv.clicked.connect(self.searchVenv)
         self.ui.btnTestar.clicked.connect(self.testServer)
@@ -45,49 +50,42 @@ class MainWindow:
     
 
     def testServer(self):
-        if(self.ui.serverName.text() == ''):
-            self.ui.serverName.setText('localhost')
-        if(self.ui.port.value() == 0):
-            self.ui.port.setValue(8000)
+        self.ui.labelStatusServer.setText(
+            '<b style=" font-size:10pt; color:#000055;">Testando Porta</b>')
+        for i in range(50):
+            self.ui.progressTestBar.setValue(i+1)
+            time.sleep(0.01)
+        self.testPort = testConnectPort(
+            self.ui.serverName.text(), self.ui.port.value())
+        
+        self.ui.labelStatusServer.setText(
+            '<b style=" font-size:10pt; color:#000055;">Testando ServerName</b>')
+        time.sleep(0.3)
+        for i in range(50, 100):
+            self.ui.progressTestBar.setValue(i+1)
+            time.sleep(0.02)
+
+        self.ui.labelStatusServer.setText(
+            '<b style=" font-size:11pt; color:#000055;">Verificando Resultados...</b>')
+
+        self.testServerName = testConnectServer(self.ui.serverName.text())
+        
+        self.ui.separador.setText(
+            '<center><b style=" font-size:11pt;">|</b></center>')
+        
+        if(self.testPort == 0):
+            self.ui.labelStatusPorta.setText(
+                '<center><b style="font-size:10pt; color:#005500;">Porta Ok!</b></center>')
+        else:
+            self.ui.labelStatusPorta.setText(
+                '<center><b style="font-size:10pt; color:#550000;">Porta Indisponível!</b></center>')
+        if(self.testServerName):
+            self.ui.labelStatusServer.setText(
+                '<center><b style="font-size:10pt; color:#005500;">Server Ok!</b></center>')
         else:
             self.ui.labelStatusServer.setText(
-                '<b style=" font-size:10pt; color:#000055;">Testando Porta.</b>')
-            for i in range(50):
-                self.ui.progressTestBar.setValue(i+1)
-                time.sleep(0.01)
-            self.testPort = testConnectPort(
-                self.ui.serverName.text(), self.ui.port.value())
-            
-            self.ui.labelStatusServer.setText(
-                '<b style=" font-size:10pt; color:#000055;">Testando ServerName.</b>')
-            time.sleep(0.3)
-            for i in range(50, 100):
-                self.ui.progressTestBar.setValue(i+1)
-                time.sleep(0.02)
+                '<center><b style="font-size:10pt; color:#550000;">Server Indisponível!</b></center>')
 
-            self.ui.labelStatusServer.setText(
-                '<b style=" font-size:11pt; color:#000055;">Verificando Resultados...</b>')
-
-            self.testServerName = testConnectServer(self.ui.serverName.text())
-            
-            self.ui.separador.setText(
-                '<center><b style=" font-size:11pt;">|</b></center>')
-            
-            if(self.testPort == 0):
-                self.ui.labelStatusPorta.setText(
-                    '<center><b style="font-size:10pt; color:#005500;">Porta Ok!</b></center>')
-            else:
-                self.ui.labelStatusPorta.setText(
-                    '<center><b style="font-size:10pt; color:#550000;">Porta Indisponível!</b></center>')
-            if(self.testServerName):
-                self.ui.labelStatusServer.setText(
-                    '<center><b style="font-size:10pt; color:#005500;">Server Ok!</b></center>')
-            else:
-                self.ui.labelStatusServer.setText(
-                    '<center><b style="font-size:10pt; color:#550000;">Server Indisponível!</b></center>')
-    
-
-                
     def openLink(self):
         url = 'http://wi2l.com.br'
         if sys.platform == 'darwin':  # Em caso de ser OS X

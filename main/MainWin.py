@@ -50,30 +50,41 @@ class MainWindow:
         if(self.ui.port.value() == 0):
             self.ui.port.setValue(8000)
         else:
-            self.ui.labelStatus.setText(
-                '<b style=" font-size:11pt; font-weight:600; color:#000055;">Testando Porta...</b>')
+            self.ui.labelStatusServer.setText(
+                '<b style=" font-size:10pt; color:#000055;">Testando Porta.</b>')
             for i in range(50):
                 self.ui.progressTestBar.setValue(i+1)
                 time.sleep(0.01)
             self.testPort = testConnectPort(
                 self.ui.serverName.text(), self.ui.port.value())
             
-
-            self.ui.labelStatus.setText(
-                '<b style=" font-size:11pt; font-weight:600; color:#000055;">Testando ServerName...</b>')
+            self.ui.labelStatusServer.setText(
+                '<b style=" font-size:10pt; color:#000055;">Testando ServerName.</b>')
             time.sleep(0.3)
             for i in range(50, 100):
                 self.ui.progressTestBar.setValue(i+1)
                 time.sleep(0.02)
 
-            self.ui.labelStatus.setText('<b style=" font-size:11pt; font-weight:600; color:#000055;">Verificando Resultados...</b>')
+            self.ui.labelStatusServer.setText(
+                '<b style=" font-size:11pt; color:#000055;">Verificando Resultados...</b>')
 
             self.testServerName = testConnectServer(self.ui.serverName.text())
-
-            if((self.testPort == 0) and (self.testServerName)):
-                self.ui.labelStatus.setText('<b style="font-size:11pt; font-weight:600; color:#005500;">Disponível!</b>')
+            
+            self.ui.separador.setText(
+                '<center><b style=" font-size:11pt;">|</b></center>')
+            
+            if(self.testPort == 0):
+                self.ui.labelStatusPorta.setText(
+                    '<center><b style="font-size:10pt; color:#005500;">Porta Ok!</b></center>')
             else:
-                self.ui.labelStatus.setText('<b style="font-size:11pt; font-weight:600; color:#550000;">Não Disponível!</b>')
+                self.ui.labelStatusPorta.setText(
+                    '<center><b style="font-size:10pt; color:#550000;">Porta Indisponível!</b></center>')
+            if(self.testServerName):
+                self.ui.labelStatusServer.setText(
+                    '<center><b style="font-size:10pt; color:#005500;">Server Ok!</b></center>')
+            else:
+                self.ui.labelStatusServer.setText(
+                    '<center><b style="font-size:10pt; color:#550000;">Server Indisponível!</b></center>')
     
 
                 

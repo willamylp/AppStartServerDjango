@@ -34,6 +34,7 @@ class MainWindow:
         self.ui.btnBuscarVenv.clicked.connect(self.searchVenv)
         self.ui.btnTestar.clicked.connect(self.testServer)
         self.ui.linkWI2L.clicked.connect(self.openLink)
+        self.ui.startServer.clicked.connect(self.startServer)
 
     def show(self):
         self.main_win.show()
@@ -65,9 +66,6 @@ class MainWindow:
             self.ui.progressTestBar.setValue(i+1)
             time.sleep(0.02)
 
-        self.ui.labelStatusServer.setText(
-            '<b style=" font-size:11pt; color:#000055;">Verificando Resultados...</b>')
-
         self.testServerName = testConnectServer(self.ui.serverName.text())
         
         self.ui.separador.setText(
@@ -85,6 +83,20 @@ class MainWindow:
         else:
             self.ui.labelStatusServer.setText(
                 '<center><b style="font-size:10pt; color:#550000;">Server Indisponível!</b></center>')
+
+    def startServer(self):
+        self.cmdOpenDirVenv = 'cd {}/Scripts & activate'.format(self.ui.dictVenv.text())
+        system_call(self.cmdOpenDirVenv)
+        print(self.cmdOpenDirVenv)
+        #system_call('./activate')
+
+        self.cmdOpenDirApp = 'cd {}'.format(self.ui.dictApp.text())
+        system_call(self.cmdOpenDirApp)
+        print(self.cmdOpenDirApp)
+
+        self.cmdStartServer = 'python manage.py runserver {}:{}'.format(
+            self.ui.serverName.text(), self.ui.port.value())
+
 
     def openLink(self):
         url = 'http://wi2l.com.br'

@@ -11,14 +11,7 @@ from ssl import SOCK_STREAM
 from PyQt5.QtWidgets import QApplication, QFileDialog, QLineEdit, QMainWindow
 from Ui_MainWin import Ui_MainWindow
 
-def testConnectPort(host, port):
-    cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    cliente.settimeout(0.3)
-    conexao = cliente.connect_ex((host, port))
-    return conexao
 
-def testConnectServer(host):
-    return system_call("ping {}".format(host)) == 0
 
 class MainWindow:
     def __init__(self):
@@ -49,25 +42,39 @@ class MainWindow:
             None, 'Selecionar Pasta da Virtualenv', os.getenv('HOME')))
         self.ui.dictVenv.setText(self.venvDir)
     
+    def testConnectPort(self, host, port):
+        self.cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.cliente.settimeout(0.3)
+        self.conexao = self.cliente.connect_ex((host, port))
+        return self.conexao
+
+    def testConnectServer(self, host):
+        return system_call("ping {}".format(host)) == 0
 
     def testServer(self):
-        self.ui.labelStatusServer.setText(
-            '<b style=" font-size:10pt; color:#000055;">Testando Porta</b>')
-        for i in range(50):
-            self.ui.progressTestBar.setValue(i+1)
-            time.sleep(0.01)
-        self.testPort = testConnectPort(
-            self.ui.serverName.text(), self.ui.port.value())
-        
+        #START - Test ServerName
         self.ui.labelStatusServer.setText(
             '<b style=" font-size:10pt; color:#000055;">Testando ServerName</b>')
         time.sleep(0.3)
-        for i in range(50, 100):
+        for i in range(50):
             self.ui.progressTestBar.setValue(i+1)
             time.sleep(0.02)
+        self.ui.labelStatusServer.setText(
+            '<b style=" font-size:10pt; color:#000055;">Aguarde...</b>')
+        self.testServerName = self.testConnectServer(self.ui.serverName.text())
+        #END - Test ServerName
+        '''--------------------------------------'''
+        #START - Test Port
+        self.ui.labelStatusServer.setText(
+            '<b style=" font-size:10pt; color:#000055;">Testando Porta</b>')
+        for i in range(50, 100):
+            self.ui.progressTestBar.setValue(i+1)
+            time.sleep(0.01)
+        self.testPort = self.testConnectPort(
+            self.ui.serverName.text(), self.ui.port.value())
+        print(self.testPort)
+        #END - Test Port
 
-        self.testServerName = testConnectServer(self.ui.serverName.text())
-        
         self.ui.separador.setText(
             '<center><b style=" font-size:11pt;">|</b></center>')
         
@@ -105,8 +112,11 @@ class MainWindow:
         else:
             webbrowser.open_new_tab(url)
 
-if __name__ == '__main__':
+def main():
     app = QApplication(sys.argv)
     main_win = MainWindow()
     main_win.show()
     sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()

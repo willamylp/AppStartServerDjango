@@ -59,8 +59,7 @@ class MainWindow:
         for i in range(50):
             self.ui.progressTestBar.setValue(i+1)
             time.sleep(0.02)
-        self.ui.labelStatusServer.setText(
-            '<b style=" font-size:10pt; color:#000055;">Aguarde...</b>')
+        
         self.testServerName = self.testConnectServer(self.ui.serverName.text())
         #END - Test ServerName
         '''--------------------------------------'''
@@ -72,13 +71,12 @@ class MainWindow:
             time.sleep(0.01)
         self.testPort = self.testConnectPort(
             self.ui.serverName.text(), self.ui.port.value())
-        print(self.testPort)
         #END - Test Port
 
         self.ui.separador.setText(
             '<center><b style=" font-size:11pt;">|</b></center>')
         
-        if(self.testPort == 0):
+        if(self.testPort != 0):
             self.ui.labelStatusPorta.setText(
                 '<center><b style="font-size:10pt; color:#005500;">Porta Ok!</b></center>')
         else:

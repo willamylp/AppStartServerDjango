@@ -1,20 +1,12 @@
-import os
+import os, socket, sys, time,subprocess, webbrowser
 from os import system as system_call 
 from platform import system as system_name
-import socket
-import subprocess
-import sys
-import time
-import webbrowser
 from ssl import SOCK_STREAM
-
 from PyQt5.QtWidgets import QApplication, QFileDialog, QLineEdit, QMainWindow
 from Ui_MainWin import Ui_MainWindow
-
-
-
 class MainWindow:
     def __init__(self):
+        self.url = 'http://wi2l.com.br'
         self.main_win = QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.main_win)
@@ -26,7 +18,7 @@ class MainWindow:
         self.ui.btnBuscarApp.clicked.connect(self.searchApp)
         self.ui.btnBuscarVenv.clicked.connect(self.searchVenv)
         self.ui.btnTestar.clicked.connect(self.testServer)
-        self.ui.linkWI2L.clicked.connect(self.openLink)
+        self.ui.linkWI2L.clicked.connect(self.openLink(self.url))
         self.ui.startServer.clicked.connect(self.startServer)
 
     def show(self):
@@ -90,21 +82,22 @@ class MainWindow:
                 '<center><b style="font-size:10pt; color:#550000;">Server Indisponível!</b></center>')
 
     def startServer(self):
-        self.cmdOpenDirVenv = 'cd {}/Scripts & activate'.format(self.ui.dictVenv.text())
-        system_call(self.cmdOpenDirVenv)
-        print(self.cmdOpenDirVenv)
-        #system_call('./activate')
-
+        self.cmdOpenDirVenvActivate = 'cd {}/Scripts & activate'.format(self.ui.dictVenv.text())
         self.cmdOpenDirApp = 'cd {}'.format(self.ui.dictApp.text())
-        system_call(self.cmdOpenDirApp)
-        print(self.cmdOpenDirApp)
 
-        self.cmdStartServer = 'python manage.py runserver {}:{}'.format(
+        self.cmdStartServer = '{} & {} & python manage.py runserver {}:{}'.format(
+            self.cmdOpenDirVenvActivate,
+            self.cmdOpenDirApp,
+            self.ui.serverName.text(),
+            self.ui.port.value()
+        )
+        os.system(self.cmdStartServer)
+        time.sleep(2)
+        self.url = '{}:{}'.format(
             self.ui.serverName.text(), self.ui.port.value())
+        self.openLink(self.url)
 
-
-    def openLink(self):
-        url = 'http://wi2l.com.br'
+    def openLink(self, url):
         if sys.platform == 'darwin':  # Em caso de ser OS X
             subprocess.Popen(['open', url])
         else:

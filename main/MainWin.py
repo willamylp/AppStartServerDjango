@@ -18,7 +18,7 @@ class MainWindow:
         self.ui.btnBuscarApp.clicked.connect(self.searchApp)
         self.ui.btnBuscarVenv.clicked.connect(self.searchVenv)
         self.ui.btnTestar.clicked.connect(self.testServer)
-        self.ui.linkWI2L.clicked.connect(self.openLink(self.url))
+        #self.ui.linkWI2L.clicked.connect(self.openLink(self.url))
         self.ui.startServer.clicked.connect(self.startServer)
 
     def show(self):

@@ -93,9 +93,9 @@ class MainWindow:
         )
         os.system(self.cmdStartServer)
         time.sleep(2)
-        self.url = '{}:{}'.format(
-            self.ui.serverName.text(), self.ui.port.value())
-        self.openLink(self.url)
+        #self.url = '{}:{}'.format(
+        #    self.ui.serverName.text(), self.ui.port.value())
+        #self.openLink(self.url)
 
     def openLink(self, url):
         if sys.platform == 'darwin':  # Em caso de ser OS X

@@ -1,4 +1,4 @@
-# AppStartServerDjango
+# StartServerDjango
 
 Aplicação Desktop com o intuito de facilitar a execução do servidor Python Django, Nesta é possível verificar a disponibilidade do host e da porta ao qual será iniciado o servidor do Django e "startar" o mesmo já para o projeto especificado.
 
